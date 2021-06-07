@@ -51,14 +51,14 @@ Apify.main(async () => {
             const title = await page.title();
             const statusCode = await response.status();
             log.info(`Processing: ${title}. Depth: ${request.userData.depthOfCrawl},`
-                + `is detail page: ${request.userData.detailPage} URL: ${request.url}`);
+                + `is detail page: ${request.userData.detailPage} URL: ${request.url}`+ `TITLE: ${request.userData.titleCat}` );
 
                 var titleOne = null;
                 var titleTwo = null;
                 var titleThree = null;
 
 
-            const pageData = { category: title+' ('+request.userData.depthOfCrawl+')', categoryUrl: request.url, };
+            const pageData = { category: title+' ('+request.userData.depthOfCrawl+') - '+request.userData.titleCat, categoryUrl: request.url, };
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
@@ -93,6 +93,7 @@ Apify.main(async () => {
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 1;
+                        req.userData.titleCat = title;
                         return req;
                     },
                 });
@@ -110,6 +111,7 @@ Apify.main(async () => {
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 2;
+                        req.userData.titleCat = title;
                         return req;
                     },
                 });
@@ -142,6 +144,7 @@ Apify.main(async () => {
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 3;
+                        req.userData.titleCat = title;
                         return req;
                     },
                 });
