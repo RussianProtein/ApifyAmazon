@@ -89,6 +89,7 @@ Apify.main(async () => {
                 console.log('А что тут?');
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
+                pageData.title = title;
                 await enqueueLinks({
                     page,
                     requestQueue,
@@ -108,6 +109,7 @@ Apify.main(async () => {
                 console.log('Тест');
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
+                pageData.title = title;
                 await enqueueLinks({
                     page,
                     requestQueue,
@@ -141,6 +143,7 @@ Apify.main(async () => {
                 console.log('Цыпа');
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 3;
+                pageData.title = title;
                 await enqueueLinks({
                     page,
                     requestQueue,
@@ -161,13 +164,6 @@ Apify.main(async () => {
             if (request.userData.detailPage) {
                 await scrapeDetailsPage(page, pageData);
             }
-            axios.post('https://amazon.htmlup.ru/api/parse', pageData)
-            .then(function (response) {
-              //console.log(response);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
         },
     });
 

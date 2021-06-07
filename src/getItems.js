@@ -30,7 +30,15 @@ async function getItems(pageObj, pageData, resultsArr) {
             url: urlsArr[i],
             thumbnail: imgsObj[i],
         });
+        
     }
+    axios.post('https://amazon.htmlup.ru/api/parse', resultsArr)
+    .then(function (response) {
+      //console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 async function scrapeDetailsPage(pageObj, pageData) {
