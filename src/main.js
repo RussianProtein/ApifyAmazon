@@ -53,7 +53,7 @@ Apify.main(async () => {
             log.info(`Processing: ${title}. Depth: ${request.userData.depthOfCrawl},`
                 + `is detail page: ${request.userData.detailPage} URL: ${request.url}`);
 
-            const pageData = { category: title, categoryUrl: request.url };
+            const pageData = { category: title, categoryUrl: request.url};
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
@@ -77,6 +77,7 @@ Apify.main(async () => {
 
             // Enqueue main category pages on the Best Sellers homepage
             if (!request.userData.detailPage) {
+                pageData.depth = 1;
                 await enqueueLinks({
                     page,
                     requestQueue,
@@ -91,6 +92,7 @@ Apify.main(async () => {
 
             // Enqueue second subcategory level
             if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 1) {
+                pageData.depth = 2;
                 await enqueueLinks({
                     page,
                     requestQueue,
@@ -103,26 +105,12 @@ Apify.main(async () => {
                 });
             }
 
-            if (depthOfCrawl > 2 && request.userData.depthOfCrawl === 2) {
-                await enqueueLinks({
-                    page,
-                    requestQueue,
-                    selector: 'ul > ul > ul > ul > li > a',
-                    transformRequestFunction: (req) => {
-                        req.userData.detailPage = true;
-                        req.userData.depthOfCrawl = 3;
-                        return req;
-                    },
-                });
-            }
-
-            // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
-            // // Enqueue 3rd subcategory level
-            // if (depthOfCrawl === 3 && request.userData.depthOfCrawl === 2) {
+            // if (depthOfCrawl > 2 && request.userData.depthOfCrawl === 2) {
+            //     pageData.depth = 2;
             //     await enqueueLinks({
             //         page,
             //         requestQueue,
-            //         selector: 'ul > ul > ul > li > a',
+            //         selector: 'ul > ul > ul > ul > li > a',
             //         transformRequestFunction: (req) => {
             //             req.userData.detailPage = true;
             //             req.userData.depthOfCrawl = 3;
@@ -130,6 +118,22 @@ Apify.main(async () => {
             //         },
             //     });
             // }
+
+            // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
+            // // Enqueue 3rd subcategory level
+            if (depthOfCrawl === 3 && request.userData.depthOfCrawl === 2) {
+                pageData.depth = 3;
+                await enqueueLinks({
+                    page,
+                    requestQueue,
+                    selector: 'ul > ul > ul > li > a',
+                    transformRequestFunction: (req) => {
+                        req.userData.detailPage = true;
+                        req.userData.depthOfCrawl = 3;
+                        return req;
+                    },
+                });
+            }
 
             // Log number of pending URLs (works only locally)
             // log.info(`Pending URLs: ${requestQueue.pendingCount}`);
