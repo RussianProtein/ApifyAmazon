@@ -56,7 +56,7 @@ Apify.main(async () => {
                 var titleOne = null;
                 var titleTwo = null;
                 var titleThree = null;
-                
+
             if(depthOfCrawl > 1 && request.userData.depthOfCrawl === 1){
                 var titleOne = title;
             }else if(request.userData.depthOfCrawl === 2){
@@ -88,6 +88,8 @@ Apify.main(async () => {
 
             // Enqueue main category pages on the Best Sellers homepage
             if (!request.userData.detailPage) {
+                console.log('А что тут?');
+                console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 await enqueueLinks({
                     page,
@@ -103,14 +105,16 @@ Apify.main(async () => {
 
             // Enqueue second subcategory level
             if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 1) {
-                pageData.depth = 2;
+                console.log('Тест');
+                console.log(request.userData.depthOfCrawl);
+                pageData.depth = 1;
                 await enqueueLinks({
                     page,
                     requestQueue,
                     selector: 'ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
-                        req.userData.depthOfCrawl = 2;
+                        req.userData.depthOfCrawl = 1;
                         return req;
                     },
                 });
@@ -133,14 +137,16 @@ Apify.main(async () => {
             // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
             // // Enqueue 3rd subcategory level
             if (depthOfCrawl === 3 && request.userData.depthOfCrawl === 2) {
-                pageData.depth = 3;
+                console.log('Цыпа');
+                console.log(request.userData.depthOfCrawl);
+                pageData.depth = 2;
                 await enqueueLinks({
                     page,
                     requestQueue,
                     selector: 'ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
-                        req.userData.depthOfCrawl = 3;
+                        req.userData.depthOfCrawl = 2;
                         return req;
                     },
                 });
