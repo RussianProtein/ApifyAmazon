@@ -112,6 +112,7 @@ Apify.main(async () => {
                     page,
                     requestQueue,
                     selector: 'ul > ul > ul > li > a',
+                    limit: 1,
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 1;
