@@ -62,13 +62,7 @@ Apify.main(async () => {
             const pageData = { category: title+' ('+request.userData.depthOfCrawl+') - '+request.userData.titleCat, categoryUrl: request.url, };
 
                             
-            axios.post('https://amazon.htmlup.ru/api/parse', pageData)
-              .then(function (response) {
-                //console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+   
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
@@ -167,6 +161,13 @@ Apify.main(async () => {
             if (request.userData.detailPage) {
                 await scrapeDetailsPage(page, pageData);
             }
+            axios.post('https://amazon.htmlup.ru/api/parse', pageData)
+            .then(function (response) {
+              //console.log(response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         },
     });
 
