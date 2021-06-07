@@ -1,6 +1,5 @@
 const Apify = require('apify');
 const cheerio = require('cheerio');
-const axios = require('axios');
 
 const { log, enqueueLinks } = Apify.utils;
 const { scrapeDetailsPage } = require('./getItems.js');

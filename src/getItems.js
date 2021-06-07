@@ -1,4 +1,5 @@
 const Apify = require('apify');
+const axios = require('axios');
 
 const { log } = Apify.utils;
 
