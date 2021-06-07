@@ -103,6 +103,19 @@ Apify.main(async () => {
                 });
             }
 
+            if (depthOfCrawl > 2 && request.userData.depthOfCrawl === 2) {
+                await enqueueLinks({
+                    page,
+                    requestQueue,
+                    selector: 'ul > ul > ul > ul > li > a',
+                    transformRequestFunction: (req) => {
+                        req.userData.detailPage = true;
+                        req.userData.depthOfCrawl = 3;
+                        return req;
+                    },
+                });
+            }
+
             // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
             // // Enqueue 3rd subcategory level
             // if (depthOfCrawl === 3 && request.userData.depthOfCrawl === 2) {
