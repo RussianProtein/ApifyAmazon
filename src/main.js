@@ -1,5 +1,6 @@
 const Apify = require('apify');
 const cheerio = require('cheerio');
+const axios = require('axios');
 
 const { log, enqueueLinks } = Apify.utils;
 const { scrapeDetailsPage } = require('./getItems.js');
@@ -59,6 +60,17 @@ Apify.main(async () => {
 
 
             const pageData = { category: title+' ('+request.userData.depthOfCrawl+') - '+request.userData.titleCat, categoryUrl: request.url, };
+
+                            
+            axios.post('https://dev-api.gurmanika.ru/api/parse', {
+                pageData: pageData,
+              })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
