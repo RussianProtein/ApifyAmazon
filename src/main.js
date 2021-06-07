@@ -53,7 +53,7 @@ Apify.main(async () => {
             log.info(`Processing: ${title}. Depth: ${request.userData.depthOfCrawl},`
                 + `is detail page: ${request.userData.detailPage} URL: ${request.url}`);
 
-            const pageData = { category: title, categoryUrl: request.url};
+            const pageData = { categoryFirst: title,  categoryTwo: title,  categoryThree: title, categoryUrl: request.url, };
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
