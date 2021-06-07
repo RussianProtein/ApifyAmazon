@@ -116,7 +116,7 @@ Apify.main(async () => {
                     limit: 1,
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
-                        req.userData.depthOfCrawl = 1;
+                        req.userData.depthOfCrawl = 3;
                         return req;
                     },
                 });
