@@ -56,11 +56,12 @@ Apify.main(async () => {
                 var titleOne = null;
                 var titleTwo = null;
                 var titleThree = null;
-            if (!request.userData.detailPage) {
+                
+            if(depthOfCrawl > 1 && request.userData.depthOfCrawl === 1){
                 var titleOne = title;
-            }else if(depthOfCrawl > 1 && request.userData.depthOfCrawl === 1){
+            }else if(request.userData.depthOfCrawl === 2){
                 var titleTwo = title;
-            }else if(depthOfCrawl === 3 && request.userData.depthOfCrawl === 2){
+            }else if(request.userData.depthOfCrawl === 3){
                 var titleThree = title;
             }
             const pageData = { category1: titleOne,  category2: titleTwo,  category3: titleThree, categoryUrl: request.url, };
