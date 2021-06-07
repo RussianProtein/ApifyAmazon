@@ -57,14 +57,8 @@ Apify.main(async () => {
                 var titleTwo = null;
                 var titleThree = null;
 
-            if(depthOfCrawl > 1 && request.userData.depthOfCrawl === 1){
-                var titleOne = title;
-            }else if(request.userData.depthOfCrawl === 2){
-                var titleTwo = title;
-            }else if(request.userData.depthOfCrawl === 3){
-                var titleThree = title;
-            }
-            const pageData = { category1: titleOne,  category2: titleTwo,  category3: titleThree, categoryUrl: request.url, };
+
+            const pageData = { category: title+' ('+request.userData.depthOfCrawl+')', categoryUrl: request.url, };
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
@@ -112,7 +106,7 @@ Apify.main(async () => {
                 await enqueueLinks({
                     page,
                     requestQueue,
-                    limit:1,
+                    limit:2,
                     selector: 'ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
@@ -145,7 +139,6 @@ Apify.main(async () => {
                 await enqueueLinks({
                     page,
                     requestQueue,
-                    limit:1,
                     selector: 'ul > ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
