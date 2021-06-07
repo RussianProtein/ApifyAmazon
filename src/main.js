@@ -58,7 +58,7 @@ Apify.main(async () => {
                 var titleThree = null;
 
 
-            const pageData = { category: title+' ('+request.userData.depthOfCrawl+') - '+request.userData.titleCat, categoryUrl: request.url, };
+            const pageData = { category: title, categoryUrl: request.url, };
 
                             
    
