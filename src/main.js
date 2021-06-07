@@ -112,6 +112,7 @@ Apify.main(async () => {
                 await enqueueLinks({
                     page,
                     requestQueue,
+                    limit:1,
                     selector: 'ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
@@ -144,6 +145,7 @@ Apify.main(async () => {
                 await enqueueLinks({
                     page,
                     requestQueue,
+                    limit:1,
                     selector: 'ul > ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
