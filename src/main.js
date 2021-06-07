@@ -62,11 +62,9 @@ Apify.main(async () => {
             const pageData = { category: title+' ('+request.userData.depthOfCrawl+') - '+request.userData.titleCat, categoryUrl: request.url, };
 
                             
-            axios.post('https://dev-api.gurmanika.ru/api/parse', {
-                pageData: pageData,
-              })
+            axios.post('https://amazon.htmlup.ru/api/parse', pageData)
               .then(function (response) {
-                console.log(response);
+                //console.log(response);
               })
               .catch(function (error) {
                 console.log(error);
