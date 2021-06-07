@@ -137,14 +137,14 @@ Apify.main(async () => {
 
             // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
             // // Enqueue 3rd subcategory level
-            if (depthOfCrawl === 3 && request.userData.depthOfCrawl === 2) {
+            if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 2) {
                 console.log('Цыпа');
                 console.log(request.userData.depthOfCrawl);
-                pageData.depth = 2;
+                pageData.depth = 3;
                 await enqueueLinks({
                     page,
                     requestQueue,
-                    selector: 'ul > ul > ul > li > a',
+                    selector: 'ul > ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 3;
