@@ -21,7 +21,6 @@ async function getItems(pageObj, pageData, resultsArr) {
         }
     }
 
-    console.log(`Сканирование товарной позиции`);
 
     // Add scraped items to results array
     for (let i = 0; i < Object.keys(itemsObj).length; i++) {

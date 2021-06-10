@@ -53,15 +53,9 @@ Apify.main(async () => {
             log.info(`Processing: ${title}. Depth: ${request.userData.depthOfCrawl},`
                 + `is detail page: ${request.userData.detailPage} URL: ${request.url}`+ `TITLE: ${request.userData.titleCat}` );
 
-                var titleOne = null;
-                var titleTwo = null;
-                var titleThree = null;
-
-
             const pageData = { category: title, prevcat: request.userData.titleCat, categoryUrl: request.url, };
 
-                            
-            console.log(`Сканирование категории ${title}`);
+
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
@@ -85,8 +79,6 @@ Apify.main(async () => {
 
             // Enqueue main category pages on the Best Sellers homepage
             if (!request.userData.detailPage) {
-                console.log('А что тут?');
-                console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
                 pageData.CategoryID = request.userData.categoryID;
@@ -104,13 +96,10 @@ Apify.main(async () => {
                         return req;
                     },
                 });
-                console.log(data);
             }
 
             // Enqueue second subcategory level
             if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 1) {
-                console.log('Тест');
-                console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
                 pageData.CategoryID = request.userData.categoryID;
@@ -129,7 +118,6 @@ Apify.main(async () => {
                     },
                 });
 
-                console.log(data);
 
             }
 
@@ -150,8 +138,6 @@ Apify.main(async () => {
             // ADD IN CASE MORE DATA IS NEEDED (ADDING 3RD SUBCATEGORY LEVEL)
             // // Enqueue 3rd subcategory level
             if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 2) {
-                console.log('Цыпа');
-                console.log(request.userData.depthOfCrawl);
                 pageData.depth = 3;
                 pageData.title = title;
                 pageData.CategoryID = request.userData.categoryID;
