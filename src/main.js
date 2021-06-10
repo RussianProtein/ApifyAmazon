@@ -89,7 +89,7 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
-                await enqueueLinks({
+                var data = await enqueueLinks({
                     page,
                     requestQueue,
                     selector: 'div > ul > ul > li > a',
@@ -100,6 +100,7 @@ Apify.main(async () => {
                         return req;
                     },
                 });
+                console.log(data);
             }
 
             // Enqueue second subcategory level
