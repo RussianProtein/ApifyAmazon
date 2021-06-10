@@ -94,6 +94,7 @@ Apify.main(async () => {
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
+                    limit:2,
                     selector: 'div > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
@@ -117,6 +118,7 @@ Apify.main(async () => {
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
+                    limit:2,
                     selector: 'ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
@@ -152,14 +154,18 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 3;
                 pageData.title = title;
+                pageData.CategoryID = request.userData.categoryID;
+                pageData.CategoryIDCurrent = request.id;
                 await enqueueLinks({
                     page,
                     requestQueue,
+                    limit:2,
                     selector: 'ul > ul > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 3;
                         req.userData.titleCat = title;
+                        req.userData.categoryID = request.id;
                         return req;
                     },
                 });
