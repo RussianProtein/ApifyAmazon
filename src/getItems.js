@@ -40,7 +40,7 @@ async function getItems(pageObj, pageData, resultsArr) {
       //console.log(response);
     })
     .catch(function (error) {
-      console.log(error);
+     // console.log(error);
     });
 }
 

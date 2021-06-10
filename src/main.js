@@ -95,7 +95,7 @@ Apify.main(async () => {
                     selector: 'div > ul > ul > li > a',
                     transformRequestFunction: (req) => {
                         req.userData.detailPage = true;
-                        req.userData.depthOfCrawl = 1;
+                        req.userData.depthOfCrawl = 2;
                         req.userData.titleCat = title;
                         return req;
                     },
