@@ -15,7 +15,6 @@ Apify.main(async () => {
             await requestQueue.addRequest({
                 url: categoryRequest.url,
                 userData: { detailPage: true, depthOfCrawl: 1 },
-                categoryID: null
             }); // we it is not detail but it is how it was :)
         }
     } else {
@@ -90,6 +89,8 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
+                console.log(pageData.title);
+                console.log(request.userData.categoryID);
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
@@ -98,7 +99,7 @@ Apify.main(async () => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 1;
                         req.userData.titleCat = title;
-                        req.categoryID = req.id;
+                        req.userData.categoryID = req.id;
                         return req;
                     },
                 });
@@ -111,6 +112,8 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
+                console.log(pageData.title);
+                console.log(request.userData.categoryID);
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
@@ -119,7 +122,7 @@ Apify.main(async () => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 2;
                         req.userData.titleCat = title;
-                        req.categoryID = req.id;
+                        req.userData.categoryID = req.id;
                         return req;
                     },
                 });
