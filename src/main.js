@@ -97,6 +97,7 @@ Apify.main(async () => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 1;
                         req.userData.titleCat = title;
+                        req.userData = req.id;
                         return req;
                     },
                 });
@@ -117,11 +118,14 @@ Apify.main(async () => {
                         req.userData.detailPage = true;
                         req.userData.depthOfCrawl = 2;
                         req.userData.titleCat = title;
+                        req.userData = req.id;
                         return req;
                     },
                 });
 
                 console.log(data);
+                console.log('userdata');
+                console.log(data.userData);
             }
 
             // if (depthOfCrawl > 2 && request.userData.depthOfCrawl === 2) {
