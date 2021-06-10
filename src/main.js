@@ -15,6 +15,7 @@ Apify.main(async () => {
             await requestQueue.addRequest({
                 url: categoryRequest.url,
                 userData: { detailPage: true, depthOfCrawl: 1 },
+                categoryID: null
             }); // we it is not detail but it is how it was :)
         }
     } else {
