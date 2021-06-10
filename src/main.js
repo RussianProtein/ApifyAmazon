@@ -89,9 +89,8 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
-                console.log(pageData.title);
-                console.log(request.userData.categoryID);
-                console.log(request.id);
+                pageData.CategoryID = request.userData.categoryID;
+                pageData.CategoryIDCurrent = request.id;
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
@@ -113,9 +112,8 @@ Apify.main(async () => {
                 console.log(request.userData.depthOfCrawl);
                 pageData.depth = 1;
                 pageData.title = title;
-                console.log(pageData.title);
-                console.log(request.userData.categoryID);
-                console.log(request.id);
+                pageData.CategoryID = request.userData.categoryID;
+                pageData.CategoryIDCurrent = request.id;
                 var data = await enqueueLinks({
                     page,
                     requestQueue,
