@@ -61,7 +61,7 @@ Apify.main(async () => {
             const pageData = { category: title, prevcat: request.userData.titleCat, categoryUrl: request.url, };
 
                             
-   
+            console.log(`Сканирование категории ${title}`);
 
             // Loading cheerio for easy parsing, remove if you wish
             const html = await page.content();
