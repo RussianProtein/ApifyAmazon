@@ -14,7 +14,7 @@ Apify.main(async () => {
         for (const categoryRequest of categoryUrls) {
             await requestQueue.addRequest({
                 url: categoryRequest.url,
-                userData: { detailPage: true, depthOfCrawl: 1 },
+                userData: { detailPage: false},
             }); // we it is not detail but it is how it was :)
         }
     } else {
@@ -100,7 +100,7 @@ Apify.main(async () => {
 
             // Enqueue second subcategory level
             if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 1) {
-                pageData.depth = 1;
+                pageData.depth = 2;
                 pageData.title = title;
                 pageData.CategoryID = request.userData.categoryID;
                 pageData.CategoryIDCurrent = request.id;
