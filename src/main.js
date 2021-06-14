@@ -157,6 +157,27 @@ Apify.main(async () => {
                 });
             }
 
+
+            if (depthOfCrawl > 1 && request.userData.depthOfCrawl === 3) {
+                pageData.depth = 4;
+                pageData.title = title;
+                pageData.CategoryID = request.userData.categoryID;
+                pageData.CategoryIDCurrent = request.id;
+                await enqueueLinks({
+                    page,
+                    requestQueue,
+                    limit:2,
+                    selector: 'ul > ul > ul > ul > li > a',
+                    transformRequestFunction: (req) => {
+                        req.userData.detailPage = true;
+                        req.userData.depthOfCrawl = 4;
+                        req.userData.titleCat = title;
+                        req.userData.categoryID = request.id;
+                        return req;
+                    },
+                });
+            }
+
             // Log number of pending URLs (works only locally)
             // log.info(`Pending URLs: ${requestQueue.pendingCount}`);
 
